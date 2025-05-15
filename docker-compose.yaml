@@ -14,5 +14,27 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  app:
+    image: my-spring-ecommerce-app:latest
+    container_name: e-commerce-app
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/e-commerce-deneme
+      SPRING_DATASOURCE_USERNAME: beytullahp
+      SPRING_DATASOURCE_PASSWORD: beytullahpassword
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: my-react-ecommerce-app:latest
+    container_name: e-commerce-frontend
+    restart: always
+    ports:
+      - "3000:80"  # Nginx serves the app on port 80 inside container
+    depends_on:
+      - app
+
 volumes:
   pgdata:

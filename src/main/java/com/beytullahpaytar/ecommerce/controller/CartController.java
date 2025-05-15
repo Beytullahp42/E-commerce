@@ -3,6 +3,7 @@ package com.beytullahpaytar.ecommerce.controller;
 import com.beytullahpaytar.ecommerce.dto.CartItemDto;
 import com.beytullahpaytar.ecommerce.models.Cart;
 import com.beytullahpaytar.ecommerce.services.CartService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addItemToCart(@RequestBody CartItemDto cartItemDto) {
+    public ResponseEntity<String> addItemToCart(@Valid @RequestBody CartItemDto cartItemDto) {
         cartService.addItemToCart(cartItemDto);
         return ResponseEntity.ok("Item added to cart");
     }

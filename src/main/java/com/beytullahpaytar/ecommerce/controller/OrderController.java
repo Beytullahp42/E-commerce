@@ -43,7 +43,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<String> updateOrderStatus(@PathVariable Long id, @RequestBody UpdateOrderStatusDto dto) {
+    public ResponseEntity<String> updateOrderStatus(@PathVariable Long id, @Valid @RequestBody UpdateOrderStatusDto dto) {
         orderService.updateOrderStatus(id, dto.orderStatus());
         return ResponseEntity.ok("Order status updated successfully");
     }

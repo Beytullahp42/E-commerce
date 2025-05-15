@@ -3,6 +3,7 @@ package com.beytullahpaytar.ecommerce.services;
 import com.beytullahpaytar.ecommerce.dto.ItemDto;
 import com.beytullahpaytar.ecommerce.models.Item;
 import com.beytullahpaytar.ecommerce.repository.ItemRepository;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ import java.util.Objects;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+
+    @Setter //for test purposes
+    Path path = Paths.get("upload-dir");
 
     public ItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
@@ -60,20 +64,20 @@ public class ItemService {
         return itemRepository.findById(id).orElse(null);
     }
 
-    public ResponseEntity<List<Item>> getAllItems() {
-        List<Item> items = itemRepository.findAll();
-        return ResponseEntity.ok(items);
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
     }
 
     public String handleImageUpload(String filename) {
 
         String newFilename = filename.replaceFirst("tempFile", "");
 
-        Path filePath = Paths.get("upload-dir").resolve(filename);
-        Path newFilePath = Paths.get("upload-dir").resolve(newFilename);
+        Path filePath = path.resolve(filename);
+        Path newFilePath = path.resolve(newFilename);
 
         try {
-            Files.move(filePath, newFilePath);
+            Files.copy(filePath, newFilePath);
+            Files.deleteIfExists(filePath);
         } catch (IOException e) {
             throw new RuntimeException("Failed to rename file: " + e.getMessage());
         }
@@ -82,7 +86,7 @@ public class ItemService {
     }
 
     public void handleImageDelete(String filename) {
-        Path filePath = Paths.get("upload-dir").resolve(filename);
+        Path filePath = path.resolve(filename);
         try {
             Files.deleteIfExists(filePath);
         } catch (IOException e) {
