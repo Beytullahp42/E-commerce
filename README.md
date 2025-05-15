@@ -1,6 +1,8 @@
-# Important
+# E-Commerce
 
-This project is not complete yet.
+This is a mock E-commerce app I've built as a final project for SE-016 Web Applications course at Estonian Entrepreneurship University of Applied Sciences.
+This app does NOT have any log in - sign up functions, and it does not use any real payment API's.
+
 These user stories are for the assignment.
 
 ### User Stories
