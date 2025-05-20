@@ -139,7 +139,7 @@ public class FullFlowTest {
         // Verify cart contains the item
         Cart activeCart = cartRepository.findFirstByIsCompletedFalse();
         assertNotNull(activeCart);
-        assertEquals(1, activeCart.getCartItems().size());
+        assertEquals(1, activeCart.getCartItems().size()); // Failed test, should be 1, but it is 0
         assertEquals(2, activeCart.getCartItems().getFirst().getQuantity());
 
         // 4. Create an order
