@@ -19,4 +19,4 @@ This is the backend API for a mock e-commerce application developed as the final
 
 ---
 
-- Frontend React repository: https://github.com/Beytullahp42/E-commerce-React
+- Frontend React repository: https://github.com/Beytullahp42/Mock-E-commerce-React
